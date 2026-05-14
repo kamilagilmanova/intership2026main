@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LectaAI — Результаты анализа</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container navbar-content">
+        <div class="logo">Lecta<span>AI</span></div>
+        <div class="nav-wrapper">
+          <nav class="nav-links">
+            <a href="#">Возможности</a>
+            <a href="#">О проекте</a>
+            <a href="#">Демо</a>
+          </nav>
+          <a href="#" id="nav-btn-try" class="btn btn-primary">Попробовать</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="results-section">
+      <div class="container">
+        <div class="results-grid">
+          <div class="result-card">
+            <div class="card-body">
+              <h3>Кратко</h3>
+              <p class="subtitle">Основные идеи лекции</p>
+              <ul class="summary-list">
+                <li>Основные концепции темы</li>
+                <li>Ключевые определения</li>
+                <li>Выводы и структура</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="result-card">
+            <div class="card-body">
+              <h3>Термины</h3>
+              <p class="subtitle">PILLS</p>
+              <div class="tags-container">
+                <span class="tag">Нейросеть</span>
+                <span class="tag">NLP</span>
+                <span class="tag">Обучение модели</span>
+                <span class="tag">Векторизация</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-card quiz-card">
+            <div class="card-body centered">
+              <h3>Проверка знаний</h3>
+              <p class="subtitle-quiz">КВИЗ</p>
+
+              <div class="action-group">
+                <button
+                  id="btn-download-pdf"
+                  class="btn btn-primary btn-full btn-quiz"
+                >
+                  Скачать PDF
+                </button>
+                <button
+                  id="btn-share"
+                  class="btn btn-secondary-quiz btn-full btn-quiz"
+                >
+                  Поделиться
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LectaAI — Анализ материала</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container navbar-content">
+        <div class="logo">Lecta<span>AI</span></div>
+        <div class="nav-wrapper">
+          <nav class="nav-links">
+            <a href="#">Возможности</a>
+            <a href="#">О проекте</a>
+            <a href="#">Демо</a>
+          </nav>
+          <a href="#" id="btn-try-it" class="btn btn-primary">Попробовать</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="analysis-section">
+      <div class="container">
+        <div class="analysis-card">
+          <div class="analysis-header">
+            <div class="text-group">
+              <h2 id="status-title">Анализируем ваш материал</h2>
+              <p id="status-subtitle">
+                Извлекаем ключевые идеи, термины и формируем тест...
+              </p>
+            </div>
+
+            <div class="dots-loader">
+              <span></span><span></span><span></span><span></span><span></span
+              ><span></span><span></span><span></span>
+            </div>
+          </div>
+
+          <div class="progress-container">
+            <div class="analysis-progress-bar" id="analysis-progress"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LectaAI — Загрузка материала</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container navbar-content">
+        <div class="logo">Lecta<span>AI</span></div>
+
+        <div class="nav-wrapper">
+          <nav class="nav-links">
+            <a href="#">Возможности</a>
+            <a href="#">О проекте</a>
+            <a href="#">Демо</a>
+          </nav>
+          <a href="#" id="btn-try-it" class="btn btn-primary">Попробовать</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="upload-section" id="upload-section">
+      <div class="container">
+        <h2 class="section-title">Загрузите материал для анализа</h2>
+        <p class="section-subtitle">
+          Добавьте PDF, фотографию конспекта, ссылку на статью или вставьте
+          текст вручную.
+        </p>
+
+        <div class="upload-grid">
+          <div class="upload-card main-dropzone" id="dropzone-file">
+            <div class="card-content">
+              <div class="1icon-box">
+                <svg
+                  width="43"
+                  height="42"
+                  viewBox="0 0 43 42"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.33333 41.5334C3.86667 41.5334 2.61156 41.0116 1.568 39.968C0.524444 38.9245 0.00177778 37.6685 0 36.2V30.8667C0 30.1112 0.256 29.4783 0.768 28.968C1.28 28.4578 1.91289 28.2018 2.66667 28.2C3.42044 28.1983 4.05422 28.4543 4.568 28.968C5.08178 29.4818 5.33689 30.1147 5.33333 30.8667V36.2H37.3333V30.8667C37.3333 30.1112 37.5893 29.4783 38.1013 28.968C38.6133 28.4578 39.2462 28.2018 40 28.2C40.7538 28.1983 41.3876 28.4543 41.9013 28.968C42.4151 29.4818 42.6702 30.1147 42.6667 30.8667V36.2C42.6667 37.6667 42.1449 38.9227 41.1013 39.968C40.0578 41.0134 38.8018 41.5352 37.3333 41.5334H5.33333ZM18.6667 9.13337L13.6667 14.1334C13.1333 14.6667 12.5004 14.9227 11.768 14.9014C11.0356 14.88 10.4018 14.6018 9.86667 14.0667C9.37778 13.5334 9.12178 12.9112 9.09867 12.2C9.07556 11.4889 9.33156 10.8667 9.86667 10.3334L19.4667 0.733373C19.7333 0.466707 20.0222 0.278263 20.3333 0.16804C20.6444 0.0578181 20.9778 0.0018188 21.3333 4.10262e-05C21.6889 -0.00173675 22.0222 0.0542625 22.3333 0.16804C22.6444 0.281818 22.9333 0.470262 23.2 0.733373L32.8 10.3334C33.3333 10.8667 33.5893 11.4889 33.568 12.2C33.5467 12.9112 33.2907 13.5334 32.8 14.0667C32.2667 14.6 31.6338 14.8783 30.9013 14.9014C30.1689 14.9245 29.5351 14.6685 29 14.1334L24 9.13337V28.2C24 28.9556 23.744 29.5894 23.232 30.1014C22.72 30.6134 22.0871 30.8685 21.3333 30.8667C20.5796 30.8649 19.9467 30.6089 19.4347 30.0987C18.9227 29.5885 18.6667 28.9556 18.6667 28.2V9.13337Z"
+                    fill="#7B61FF"
+                  />
+                </svg>
+              </div>
+              <h3>Перетащите файл сюда</h3>
+              <p>PDF, JPG, PNG до 50 MB</p>
+              <div class="main-dropzone" id="dropzone-file">
+                <div class="card-content">
+                  <input
+                    type="file"
+                    id="file-input"
+                    style="display: none"
+                    accept=".pdf, .jpg, .png"
+                  />
+
+                  <button class="btn btn-primary" id="btn-select-file">
+                    Выбрать файл
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="upload-options">
+            <div class="upload-card small-card" id="option-link">
+              <div class="icon-box">
+                <svg
+                  width="64"
+                  height="64"
+                  viewBox="0 0 64 64"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M40 18.6666H48C49.751 18.6666 51.4848 19.0115 53.1025 19.6816C54.7201 20.3516 56.19 21.3338 57.4281 22.5719C58.6662 23.81 59.6484 25.2798 60.3184 26.8975C60.9885 28.5152 61.3334 30.249 61.3334 32C61.3334 33.7509 60.9885 35.4847 60.3184 37.1024C59.6484 38.7201 58.6662 40.1899 57.4281 41.428C56.19 42.6662 54.7201 43.6483 53.1025 44.3184C51.4848 44.9884 49.751 45.3333 48 45.3333H40M24 45.3333H16C14.2491 45.3333 12.5152 44.9884 10.8976 44.3184C9.2799 43.6483 7.81004 42.6662 6.57193 41.428C4.07144 38.9276 2.66669 35.5362 2.66669 32C2.66669 28.4637 4.07144 25.0724 6.57193 22.5719C9.07242 20.0714 12.4638 18.6666 16 18.6666H24"
+                    stroke="#7B61FF"
+                    stroke-width="5.33333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M21.3333 32H42.6666"
+                    stroke="#7B61FF"
+                    stroke-width="5.33333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <h3>Вставить ссылку</h3>
+              <div class="hidden-inputs" style="display: none">
+                <input type="url" id="link-input" placeholder="https://..." />
+              </div>
+            </div>
+
+            <div class="upload-card small-card" id="option-text">
+              <div class="icon-box">
+                <svg
+                  width="42"
+                  height="50"
+                  viewBox="0 0 42 50"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7 14.5834V8.33337H35V14.5834"
+                    stroke="#7B61FF"
+                    stroke-width="5.33333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M15.75 41.6666H26.25"
+                    stroke="#7B61FF"
+                    stroke-width="5.33333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M21 8.33337V41.6667"
+                    stroke="#7B61FF"
+                    stroke-width="5.33333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <h3>Вставить текст</h3>
+              <div class="hidden-inputs" style="display: none">
+                <textarea id="text-input"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LectaAI — Квиз</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container navbar-content">
+        <div class="logo">Lecta<span>AI</span></div>
+        <div class="nav-wrapper">
+          <nav class="nav-links">
+            <a href="#">Возможности</a>
+            <a href="#">О проекте</a>
+            <a href="#">Демо</a>
+          </nav>
+          <a href="#" id="nav-btn-try" class="btn btn-primary">Попробовать</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="quiz-section">
+      <div class="container">
+        <div class="quiz-top-panel">
+          <div class="question-count" id="question-number">Вопрос 2 из 5</div>
+          <div class="quiz-progress-container">
+            <div
+              class="quiz-progress-bar"
+              id="quiz-progress"
+              style="width: 40%"
+            ></div>
+          </div>
+        </div>
+
+        <div class="quiz-card">
+          <h2 class="quiz-question">Что такое NLP?</h2>
+
+          <div class="options-container">
+            <button class="option-btn" id="option-1">
+              Natural Language Processing
+            </button>
+            <button class="option-btn" id="option-2">
+              Network Learning Process
+            </button>
+            <button class="option-btn" id="option-3">
+              Neural Logic Protocol
+            </button>
+          </div>
+
+          <div class="quiz-actions">
+            <button id="btn-check-answer" class="btn btn-primary">
+              Проверить ответ
+            </button>
+            <button id="btn-next-question" class="btn btn-blue">
+              Следующий вопрос
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
