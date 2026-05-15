@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Адаптивный ИИ-Тест</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #e0e7ff 0%,
+          #f3e8ff 50%,
+          #dbeafe 100%
+        );
+        min-height: 100vh;
+        color: #1f2937;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      header {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 20px 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo .lecta {
+        font-size: 28px;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .logo .ai {
+        font-size: 28px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+
+      .test-info-header {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        font-size: 14px;
+        color: #6b7280;
+      }
+
+      nav {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #6b7280;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      nav a:hover {
+        color: #7c3aed;
+      }
+
+      .btn-primary {
+        background: #7b61ff;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+      }
+
+      main {
+        padding: 40px 0;
+      }
+
+      .test-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding: 0 10px;
+      }
+
+      .question-counter {
+        font-size: 18px;
+        font-weight: 600;
+        color: #374151;
+      }
+
+      .score {
+        font-size: 18px;
+        font-weight: 600;
+        color: #7c3aed;
+      }
+
+      .progress-container {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #8b5cf6 0%, #3b82f6 100%);
+        border-radius: 10px;
+        transition: width 0.5s ease;
+      }
+
+      .question-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        padding: 60px 40px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .question-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(139, 92, 246, 0.1) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .question-title {
+        font-size: 36px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #111827;
+        position: relative;
+        z-index: 1;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .option {
+        background: rgba(249, 250, 251, 0.8);
+        border: 2px solid rgba(229, 231, 235, 0.8);
+        padding: 20px 30px;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 18px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .option:hover {
+        background: rgba(255, 255, 255, 1);
+        border-color: #8b5cf6;
+        transform: translateX(8px);
+        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+      }
+
+      .option.selected {
+        background: linear-gradient(135deg, #f3e8ff 0%, #e0e7ff 100%);
+        border-color: #8b5cf6;
+        color: #7c3aed;
+        font-weight: 600;
+      }
+
+      .option.correct {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        border-color: #10b981;
+        color: #065f46;
+      }
+
+      .option.incorrect {
+        background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        border-color: #ef4444;
+        color: #991b1b;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .btn-check {
+        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        color: white;
+        border: none;
+        padding: 16px 32px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .btn-check:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+      }
+
+      .btn-check:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .btn-next {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: white;
+        border: none;
+        padding: 16px 32px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: none;
+      }
+
+      .btn-next:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+      }
+
+      .btn-next.show {
+        display: block;
+      }
+
+      .results {
+        text-align: center;
+        padding: 40px 20px;
+        display: none;
+      }
+
+      .results.show {
+        display: block;
+      }
+
+      .results h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: #111827;
+      }
+
+      .results p {
+        font-size: 18px;
+        color: #6b7280;
+        margin-bottom: 30px;
+      }
+
+      .final-score {
+        font-size: 48px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 20px 0;
+      }
+
+      @media (max-width: 768px) {
+        .question-card {
+          padding: 40px 24px;
+        }
+
+        .question-title {
+          font-size: 24px;
+        }
+
+        .option {
+          padding: 16px 20px;
+          font-size: 16px;
+        }
+
+        nav {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <span class="lecta">Lecta</span><span class="ai">AI</span>
+          </div>
+          <div class="test-info-header">
+            <span>База: <span id="totalQuestions">100</span> вопросов</span>
+            <span>Сессия: 5 вопросов</span>
+          </div>
+          <nav>
+            <a href="#">Возможности</a>
+            <a href="#">О проекте</a>
+            <a href="#">Демо</a>
+            <a href="index2.html" class="btn-primary">Попробовать</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="test-info">
+          <div class="question-counter">
+            Вопрос <span id="currentQuestion">1</span>/5
+          </div>
+          <div class="score">Счёт: <span id="score">0</span></div>
+        </div>
+
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="question-card" id="questionCard">
+          <h1 class="question-title" id="questionText">Загрузка...</h1>
+
+          <div class="options" id="options"></div>
+
+          <div class="button-group">
+            <button class="btn-check" id="checkBtn" disabled>
+              Проверить ответ
+            </button>
+            <button class="btn-next" id="nextBtn">Следующий вопрос</button>
+          </div>
+        </div>
+
+        <div class="results" id="results">
+          <h2>Сессия завершена</h2>
+          <div class="final-score">
+            Ваш счёт: <span id="finalScore">0</span>/5
+          </div>
+          <p>ИИ запомнил результаты. Следующая подборка будет адаптирована.</p>
+          <button class="btn-primary" onclick="startNewSession()">
+            Начать заново
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const questionTemplates = [
+        {
+          category: "NLP",
+          templates: [
+            {
+              question: "Что такое NLP?",
+              options: [
+                "Natural Language Processing",
+                "Network Learning Process",
+                "Neural Logic Protocol",
+                "New Learning Program",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Какая задача НЕ относится к NLP?",
+              options: [
+                "Распознавание речи",
+                "Машинный перевод",
+                "Обработка изображений",
+                "Анализ тональности",
+              ],
+              correct: 2,
+            },
+            {
+              question: "Что такое токенизация в NLP?",
+              options: [
+                "Разделение текста на части",
+                "Шифрование данных",
+                "Сжатие текста",
+                "Копирование текста",
+              ],
+              correct: 0,
+            },
+          ],
+        },
+        {
+          category: "Machine Learning",
+          templates: [
+            {
+              question: "Что такое машинное обучение?",
+              options: [
+                "Процесс обучения компьютеров на данных",
+                "Программирование роботов",
+                "Создание баз данных",
+                "Настройка сети",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Какой тип обучения использует размеченные данные?",
+              options: [
+                "Обучение с учителем",
+                "Обучение без учителя",
+                "Подкрепляющее обучение",
+                "Глубокое обучение",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Что такое переобучение модели?",
+              options: [
+                "Модель слишком подстроилась под обучающие данные",
+                "Модель недостаточно обучена",
+                "Модель работает быстро",
+                "Модель использует мало данных",
+              ],
+              correct: 0,
+            },
+          ],
+        },
+        {
+          category: "Neural Networks",
+          templates: [
+            {
+              question: "Что такое нейронная сеть?",
+              options: [
+                "Математическая модель для распознавания образов",
+                "Социальная сеть",
+                "Компьютерная сеть",
+                "База данных",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Что такое нейрон в нейронной сети?",
+              options: [
+                "Базовая единица обработки",
+                "Тип данных",
+                "Алгоритм сортировки",
+                "Протокол связи",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Что такое активационная функция?",
+              options: [
+                "Функция, определяющая выход нейрона",
+                "Функция запуска программы",
+                "Функция сохранения данных",
+                "Функция удаления данных",
+              ],
+              correct: 0,
+            },
+          ],
+        },
+        {
+          category: "Deep Learning",
+          templates: [
+            {
+              question: "Что такое Deep Learning?",
+              options: [
+                "Глубокое обучение на многослойных нейросетях",
+                "Поверхностное обучение",
+                "Обучение без данных",
+                "Быстрое обучение",
+              ],
+              correct: 0,
+            },
+            {
+              question:
+                "Какая архитектура используется для обработки последовательностей?",
+              options: [
+                "RNN (рекуррентная сеть)",
+                "CNN (сверточная сеть)",
+                "GAN (генеративная сеть)",
+                "AE (автоэнкодер)",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Что такое сверточная нейронная сеть (CNN)?",
+              options: [
+                "Сеть для обработки изображений",
+                "Сеть для обработки текста",
+                "Сеть для работы с числами",
+                "Сеть для баз данных",
+              ],
+              correct: 0,
+            },
+          ],
+        },
+        {
+          category: "AI General",
+          templates: [
+            {
+              question: "Что такое ИИ?",
+              options: [
+                "Искусственный интеллект",
+                "Интернет-интерфейс",
+                "Информационная система",
+                "Интеллектуальная сеть",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Кто считается отцом искусственного интеллекта?",
+              options: [
+                "Алан Тьюринг",
+                "Илон Маск",
+                "Билл Гейтс",
+                "Стив Джобс",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Что такое тест Тьюринга?",
+              options: [
+                "Тест на определение интеллекта ИИ",
+                "Тест на скорость компьютера",
+                "Тест на качество кода",
+                "Тест на безопасность",
+              ],
+              correct: 0,
+            },
+          ],
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let selectedOption = null;
+      let sessionQuestions = [];
+      let usedQuestionIndices = new Set();
+      let answered = false;
+
+      const questionText = document.getElementById("questionText");
+      const optionsContainer = document.getElementById("options");
+      const checkBtn = document.getElementById("checkBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const progressBar = document.getElementById("progressBar");
+      const currentQuestionEl = document.getElementById("currentQuestion");
+      const scoreEl = document.getElementById("score");
+      const questionCard = document.getElementById("questionCard");
+      const results = document.getElementById("results");
+      const finalScore = document.getElementById("finalScore");
+      const totalQuestionsEl = document.getElementById("totalQuestions");
+
+      function shuffleArray(array) {
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+        return newArray;
+      }
+
+      function generateQuestionVariation(baseQuestion) {
+        const variations = {
+          prefixes: [
+            "",
+            "В области ИИ, ",
+            "С точки зрения машинного обучения, ",
+            "В контексте ИИ, ",
+          ],
+          suffixes: ["", " (выберите правильный ответ)", " (один вариант)", ""],
+          optionPrefixes: ["", "Вариант: ", "Ответ: ", ""],
+
+          rephrase: {
+            "Что такое": [
+              "Как определяется",
+              "Что представляет собой",
+              "Какое определение у",
+              "Что понимается под",
+            ],
+            Какой: [
+              "Какой именно",
+              "Какой из перечисленных",
+              "Какой тип",
+              "Какая",
+            ],
+          },
+        };
+
+        let newQuestion = baseQuestion.question;
+
+        if (Math.random() > 0.7) {
+          newQuestion =
+            variations.prefixes[
+              Math.floor(Math.random() * variations.prefixes.length)
+            ] + newQuestion;
+        }
+        newQuestion +=
+          variations.suffixes[
+            Math.floor(Math.random() * variations.suffixes.length)
+          ];
+
+        for (const [key, values] of Object.entries(variations.rephrase)) {
+          if (newQuestion.startsWith(key)) {
+            const randomValue =
+              values[Math.floor(Math.random() * values.length)];
+            newQuestion = newQuestion.replace(key, randomValue);
+            break;
+          }
+        }
+
+        const optionsWithIndex = baseQuestion.options.map((opt, idx) => ({
+          text: opt,
+          isCorrect: idx === baseQuestion.correct,
+        }));
+
+        const shuffledOptions = shuffleArray(optionsWithIndex);
+        const newCorrectIndex = shuffledOptions.findIndex(
+          (opt) => opt.isCorrect,
+        );
+
+        return {
+          question: newQuestion,
+          options: shuffledOptions.map((opt) => opt.text),
+          correct: newCorrectIndex,
+          originalIndex:
+            baseQuestion.originalIndex || Math.floor(Math.random() * 1000),
+        };
+      }
+
+      function generateSessionQuestions() {
+        const allQuestions = [];
+
+        questionTemplates.forEach((category) => {
+          category.templates.forEach((q, idx) => {
+            allQuestions.push({
+              ...q,
+              category: category.category,
+              originalIndex: idx,
+            });
+          });
+        });
+
+        const shuffledQuestions = shuffleArray(allQuestions);
+
+        sessionQuestions = [];
+        usedQuestionIndices.clear();
+
+        for (let i = 0; i < 5 && i < shuffledQuestions.length; i++) {
+          const baseQuestion = shuffledQuestions[i];
+          const variation = generateQuestionVariation(baseQuestion);
+          sessionQuestions.push(variation);
+          usedQuestionIndices.add(baseQuestion.originalIndex);
+        }
+
+        totalQuestionsEl.textContent = allQuestions.length;
+        return sessionQuestions;
+      }
+
+      function loadQuestion() {
+        const q = sessionQuestions[currentQuestion];
+        questionText.textContent = q.question;
+        optionsContainer.innerHTML = "";
+        selectedOption = null;
+        answered = false;
+        checkBtn.disabled = true;
+        nextBtn.classList.remove("show");
+        checkBtn.style.display = "block";
+
+        q.options.forEach((option, index) => {
+          const optionEl = document.createElement("div");
+          optionEl.className = "option";
+          optionEl.textContent = option;
+          optionEl.onclick = () => selectOption(index);
+          optionsContainer.appendChild(optionEl);
+        });
+
+        currentQuestionEl.textContent = currentQuestion + 1;
+        progressBar.style.width = `${(currentQuestion / 5) * 100}%`;
+      }
+
+      function selectOption(index) {
+        if (answered) return;
+
+        selectedOption = index;
+        const options = document.querySelectorAll(".option");
+        options.forEach((opt, i) => {
+          opt.classList.remove("selected");
+          if (i === index) opt.classList.add("selected");
+        });
+        checkBtn.disabled = false;
+      }
+
+      function checkAnswer() {
+        const q = sessionQuestions[currentQuestion];
+        const options = document.querySelectorAll(".option");
+
+        options.forEach((opt, index) => {
+          if (index === q.correct) {
+            opt.classList.add("correct");
+          } else if (index === selectedOption && index !== q.correct) {
+            opt.classList.add("incorrect");
+          }
+        });
+
+        if (selectedOption === q.correct) {
+          score++;
+          scoreEl.textContent = score;
+        }
+
+        answered = true;
+        checkBtn.style.display = "none";
+        nextBtn.classList.add("show");
+      }
+
+      function nextQuestion() {
+        currentQuestion++;
+
+        if (currentQuestion >= 5) {
+          showResults();
+        } else {
+          loadQuestion();
+        }
+      }
+
+      function showResults() {
+        questionCard.style.display = "none";
+        document.querySelector(".test-info").style.display = "none";
+        document.querySelector(".progress-container").style.display = "none";
+        finalScore.textContent = score;
+        results.classList.add("show");
+        progressBar.style.width = "100%";
+      }
+
+      function startNewSession() {
+        currentQuestion = 0;
+        score = 0;
+        selectedOption = null;
+        answered = false;
+        scoreEl.textContent = "0";
+        questionCard.style.display = "block";
+        document.querySelector(".test-info").style.display = "flex";
+        document.querySelector(".progress-container").style.display = "block";
+        results.classList.remove("show");
+        generateSessionQuestions();
+        loadQuestion();
+      }
+
+      checkBtn.onclick = checkAnswer;
+      nextBtn.onclick = nextQuestion;
+
+      generateSessionQuestions();
+      loadQuestion();
+    </script>
+  </body>
+</html>
