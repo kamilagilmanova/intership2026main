@@ -243,7 +243,7 @@ h1 {
 
 .process-section {
   padding: 60px 0 80px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, #f8f9ff 100%);
+  background: #f8f9ff;
 }
 
 .process-grid {
