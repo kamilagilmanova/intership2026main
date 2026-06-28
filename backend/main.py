@@ -19,8 +19,13 @@ app.add_middleware(
 )
 
 # Инициализация клиента Gemini с твоим рабочим ключом
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "AQ.Ab8RN6IZ4aJL3HtSgskX0fY0enBwBcuxbX9XDGtP_6u2ibPEOg")
-client = genai.Client(api_key=GEMINI_API_KEY)
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "AQ.Ab8RN6LNNgF0S0brKpBvZxKEpv664qDHletj41hZJyaLEDkqEA")
+
+# Принудительно заставляем клиент работать через REST API вместо gRPC
+client = genai.Client(
+    api_key=GEMINI_API_KEY,
+    http_options={'api_version': 'v1beta'}
+)
 
 # Структура данных для фронтенда
 class QuizQuestion(BaseModel):
